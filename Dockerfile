@@ -38,5 +38,5 @@ RUN rm ninja-win.zip
 RUN pip install --break-system-packages git+https://github.com/isledecomp/reccmp
 
 # Set up entrypoint script to perform the build
-COPY entrypoint.sh entrypoint.sh
-ENTRYPOINT [ "./entrypoint.sh" ]
+COPY entrypoint.sh /entrypoint.sh
+ENTRYPOINT [ "/entrypoint.sh" ]
