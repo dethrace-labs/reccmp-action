@@ -1,7 +1,10 @@
 #!/usr/bin/env bash
 set -e
+set -x
 
 export WINEPREFIX=/wineprefix
+
+echo "CMAKE ARGS: $INPUT_CMAKE_FLAGS"
 
 # Configure build with CMake
 wine cmake -B build . $INPUT_CMAKE_FLAGS
