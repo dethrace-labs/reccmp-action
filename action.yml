@@ -4,7 +4,7 @@ description: "A GitHub Action that runs inside a Docker container"
 author: "Your Name"
 
 inputs:
-  cmake-flags:
+  cmake_flags:
     description: "An example input"
     required: true
   command:
