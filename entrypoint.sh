@@ -11,7 +11,7 @@ wine cmake -B build . $INPUT_CMAKE_FLAGS
 wine cmake --build build -- -j1
 
 # Fetch original binary
-curl -o /tmp/$INPUT_ORIGINAL_BINARY_FILENAME $INPUT_ORIGINAL_BINARY_URL
+curl -Lo /tmp/$INPUT_ORIGINAL_BINARY_FILENAME $INPUT_ORIGINAL_BINARY_URL
 
 # Update path to original binary
 reccmp-project detect --search-path /tmp
