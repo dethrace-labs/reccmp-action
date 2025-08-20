@@ -22,7 +22,7 @@ cd $BUILDDIR
 sed -i 's/Z://g' reccmp-build.yml
 
 # fetch report from main branch
-curl -fLSs -o /tmp/reccmp-report-main.json https://https://raw.githubusercontent.com/$GITHUB_REPOSITORY/refs/heads/main/$INPUT_REPORT_FILENAME
+curl -fLSs -o /tmp/reccmp-report-main.json https://raw.githubusercontent.com/$GITHUB_REPOSITORY/refs/heads/main/$INPUT_REPORT_FILENAME
 
 DIFF_OUTPUT=$(reccmp-reccmp --target $INPUT_TARGET \
     --html reccmp-report.html \
