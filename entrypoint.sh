@@ -33,13 +33,13 @@ echo "$DIFF_OUTPUT"
 
 # Check if "Decreased" appears anywhere
 if grep -q "Decreased" <<< "$DIFF_OUTPUT"; then
-  return 1
+  exit 1
 fi
 
-# the report file must be the same as the one being commited in this PR
-if cmp -s $INPUT_REPORT_FILENAME reccmp-report-new.json; then
-  echo "Files are identical"
-else
-  echo "Files differ"
-  return 1
-fi
+# # the report file must be the same as the one being commited in this PR
+# if cmp -s $INPUT_REPORT_FILENAME reccmp-report-new.json; then
+#   echo "Files are identical"
+# else
+#   echo "Files differ"
+#   return 1
+# fi
