@@ -4,13 +4,14 @@ on:
   push:
     branches: [ main ]
 
-permissions:
-  contents: read        # to checkout repo
-  packages: write       # to push to GHCR
 
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+
     steps:
       # Step 1: Checkout repo
       - name: Checkout
