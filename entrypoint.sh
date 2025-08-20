@@ -3,12 +3,13 @@ set -e
 set -x
 
 export WINEPREFIX=/wineprefix
+export BUILDDIR=build-msvc42
 
 # Configure build with CMake
-wine cmake -B build . $INPUT_CMAKE_FLAGS
+wine cmake -B $BUILDDIR . $INPUT_CMAKE_FLAGS
 
 # Build
-wine cmake --build build -- -j1
+wine cmake --build $BUILDDIR -- -j1
 
 # Fetch original binary
 curl -Lo /tmp/$INPUT_ORIGINAL_BINARY_FILENAME $INPUT_ORIGINAL_BINARY_URL
@@ -17,11 +18,28 @@ curl -Lo /tmp/$INPUT_ORIGINAL_BINARY_FILENAME $INPUT_ORIGINAL_BINARY_URL
 reccmp-project detect --search-path /tmp
 
 # Fix up wine paths to underlying linux paths so we can run reccmp outside of wine
-cd build
+cd $BUILDDIR
 sed -i 's/Z://g' reccmp-build.yml
 
-exec $INPUT_COMMAND
+# fetch report from main branch
+curl -fLSs -o /tmp/reccmp-report-main.json https://github.com/$GITHUB_REPOSITORY/blob/main/$INPUT_REPORT_FILENAME
 
+DIFF_OUTPUT=$(reccmp-reccmp --target $INPUT_TARGET \
+    --html reccmp-report.html \
+    --json reccmp-report-new.json \
+    --diff /tmp/reccmp-report-main.json)
 
-# Unlock directories
-#chmod -R 777 source build
+echo "$DIFF_OUTPUT"
+
+# Check if "Decreased" appears anywhere
+if grep -q "Decreased" <<< "$DIFF_OUTPUT"; then
+  return 1
+fi
+
+# the report file must be the same as the one being commited in this PR
+if cmp -s $INPUT_REPORT_FILENAME reccmp-report-new.json; then
+  echo "Files are identical"
+else
+  echo "Files differ"
+  return 1
+fi

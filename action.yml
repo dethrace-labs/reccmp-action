@@ -13,8 +13,11 @@ inputs:
   original_binary_filename:
     description: "Name of file to save the result of fetching original_binary_url"
     required: true
-  command:
-    description: "reccmp command to run after build is complete"
+  target:
+    description: "reccmp target name"
+    required: true
+  report_filename:
+    description: "reccmp report filename"
     required: true
 
 runs:
