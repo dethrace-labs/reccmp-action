@@ -20,6 +20,7 @@ jobs:
       - name: Debug token
         run: |
           echo "Token length: ${#GITHUB_TOKEN}"
+          env | grep GITHUB
 
       # Step 2: Log in to GHCR
       - name: Log in to GitHub Container Registry
