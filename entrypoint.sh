@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 set -e
-set -x
 
 export WINEPREFIX=/wineprefix
 export BUILDDIR=build-msvc42
