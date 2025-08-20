@@ -3,7 +3,7 @@ FROM docker.io/library/debian:stable-slim
 # Gather dependencies
 RUN dpkg --add-architecture i386
 RUN apt-get update -y
-RUN apt-get install git wine wine64 wine32 wget unzip pip -y
+RUN apt-get install git wine wine64 wine32 wget unzip pip curl -y
 
 ENV WINEPREFIX=/wineprefix
 # Silence debug warnings in wine (creates noise during compile)

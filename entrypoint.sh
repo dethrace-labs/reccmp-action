@@ -4,19 +4,20 @@ set -x
 
 export WINEPREFIX=/wineprefix
 
-echo "CMAKE ARGS: $INPUT_CMAKE_FLAGS"
-
 # Configure build with CMake
 wine cmake -B build . $INPUT_CMAKE_FLAGS
 
 # Build
 wine cmake --build build -- -j1
 
+# Fetch original binary
+curl -o /tmp/$INPUT_ORIGINAL_BINARY_FILENAME $INPUT_ORIGINAL_BINARY_URL
+
 # Update path to original binary
-reccmp-project detect --search-path /original
+reccmp-project detect --search-path /tmp
 
 # Fix up wine paths to underlying linux paths so we can run reccmp outside of wine
-cd /build
+cd build
 sed -i 's/Z://g' reccmp-build.yml
 
 exec $INPUT_COMMAND

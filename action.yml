@@ -1,14 +1,20 @@
 
 name: "Dethrace reccmp"
 description: "A GitHub Action that runs inside a Docker container"
-author: "Your Name"
+author: "Dethrace Labs"
 
 inputs:
   cmake_flags:
-    description: "An example input"
+    description: "Flags to pass to cmake"
+    required: true
+  original_binary_url:
+    description: "URL hosting the original binary to run reccmp against"
+    required: true
+  original_binary_filename:
+    description: "Name of file to save the result of fetching original_binary_url"
     required: true
   command:
-    description: "An example input"
+    description: "reccmp command to run after build is complete"
     required: true
 
 runs:
