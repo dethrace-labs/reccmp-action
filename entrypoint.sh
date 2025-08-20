@@ -24,10 +24,16 @@ sed -i 's/Z://g' reccmp-build.yml
 # fetch report from main branch
 curl -fLSs -o /tmp/reccmp-report-main.json https://raw.githubusercontent.com/$GITHUB_REPOSITORY/refs/heads/main/$INPUT_REPORT_FILENAME
 
-DIFF_OUTPUT=$(reccmp-reccmp --target $INPUT_TARGET \
-    --html reccmp-report.html \
-    --json reccmp-report-new.json \
-    --diff /tmp/reccmp-report-main.json)
+found=0
+while IFS= read -r line; do
+  echo "$line"
+  if [[ "$line" == *Decreased* ]]; then
+    found=1
+  fi
+done < <(reccmp-reccmp --target $INPUT_TARGET --html reccmp-report.html --json reccmp-report-new.json --diff /tmp/reccmp-report-main.json)
+if (( found )); then
+  exit 1
+fi
 
 echo "$DIFF_OUTPUT"
 
