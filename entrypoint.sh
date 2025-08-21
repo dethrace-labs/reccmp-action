@@ -15,7 +15,7 @@ if [ "${INPUT_BUILD_ONLY}" = "true" ]; then
 fi
 
 # Fetch original binary
-curl -Lo /tmp/$INPUT_ORIGINAL_BINARY_FILENAME $INPUT_ORIGINAL_BINARY_URL
+curl --silent --show-error --fail -Lo /tmp/$INPUT_ORIGINAL_BINARY_FILENAME $INPUT_ORIGINAL_BINARY_URL
 
 # Update path to original binary
 reccmp-project detect --search-path /tmp
