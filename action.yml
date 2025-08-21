@@ -7,6 +7,8 @@ inputs:
   cmake_flags:
     description: "Flags to pass to cmake"
     required: true
+  build_only:
+    description: "Only perform the build step"
   original_binary_url:
     description: "URL hosting the original binary to run reccmp against"
     required: true

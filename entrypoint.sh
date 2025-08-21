@@ -10,6 +10,10 @@ wine cmake -B $BUILDDIR . $INPUT_CMAKE_FLAGS
 # Build
 wine cmake --build $BUILDDIR -- -j1
 
+if [ "${INPUT_BUILD_ONLY}" = "true" ]; then
+  exit 0
+fi
+
 # Fetch original binary
 curl -Lo /tmp/$INPUT_ORIGINAL_BINARY_FILENAME $INPUT_ORIGINAL_BINARY_URL
 
@@ -20,21 +24,16 @@ reccmp-project detect --search-path /tmp
 cd $BUILDDIR
 sed -i 's/Z://g' reccmp-build.yml
 
-# fetch report from main branch
-curl -fLSs -o /tmp/reccmp-report-main.json https://raw.githubusercontent.com/$GITHUB_REPOSITORY/refs/heads/main/$INPUT_REPORT_FILENAME
-
 found=0
 while IFS= read -r line; do
   echo "$line"
   if [[ "$line" == *Decreased* ]]; then
     found=1
   fi
-done < <(reccmp-reccmp --target $INPUT_TARGET --html reccmp-report.html --json reccmp-report-new.json --diff /tmp/reccmp-report-main.json)
+done < <(reccmp-reccmp --target $INPUT_TARGET --html reccmp-report.html --json reccmp-report-new.json --diff $INPUT_REPORT_FILENAME
 if (( found )); then
   exit 1
 fi
-
-echo "$DIFF_OUTPUT"
 
 # Check if "Decreased" appears anywhere
 if grep -q "Decreased" <<< "$DIFF_OUTPUT"; then
