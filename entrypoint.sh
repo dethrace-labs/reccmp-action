@@ -10,6 +10,7 @@ wine cmake -B $BUILDDIR . $INPUT_CMAKE_FLAGS
 # Build
 wine cmake --build $BUILDDIR -- -j1
 
+echo build_only: $INPUT_BUILD_ONLY
 if [ "${INPUT_BUILD_ONLY}" = "true" ]; then
   exit 0
 fi
