@@ -21,7 +21,8 @@ curl -Lo /tmp/$INPUT_ORIGINAL_BINARY_FILENAME $INPUT_ORIGINAL_BINARY_URL
 reccmp-project detect --search-path /tmp
 
 # Fix up wine paths to underlying linux paths so we can run reccmp outside of wine
-sed -i 's/Z://g' $BUILDDIR/reccmp-build.yml
+cd $BUILDDIR
+sed -i 's/Z://g' reccmp-build.yml
 
 found=0
 while IFS= read -r line; do
