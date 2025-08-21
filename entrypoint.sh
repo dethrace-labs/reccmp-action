@@ -31,7 +31,7 @@ while IFS= read -r line; do
   if [[ "$line" == *Decreased* ]]; then
     found=1
   fi
-done < <(reccmp-reccmp --target $INPUT_TARGET --html reccmp-report.html --json reccmp-report-new.json --diff $INPUT_REPORT_FILENAME
+done < <(reccmp-reccmp --target $INPUT_TARGET --html reccmp-report.html --json reccmp-report-new.json --diff $INPUT_REPORT_FILENAME)
 if (( found )); then
   exit 1
 fi
