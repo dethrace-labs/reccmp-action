@@ -24,21 +24,21 @@ reccmp-project detect --search-path /tmp
 cd $BUILDDIR
 sed -i 's/Z://g' reccmp-build.yml
 
-found=0
-while IFS= read -r line; do
-  echo "$line"
-  if [[ "$line" == *Decreased* ]]; then
-    found=1
-  fi
-done < <(reccmp-reccmp --target $INPUT_TARGET --html reccmp-report.html --json $INPUT_REPORT_FILENAME --diff $INPUT_DIFF_REPORT_FILENAME)
-if (( found )); then
+# Capture the output of the command into a variable
+output=$(
+  reccmp-reccmp \
+    --target "$INPUT_TARGET" \
+    --html reccmp-report.html \
+    --json "$INPUT_REPORT_FILENAME" \
+    --diff "$INPUT_DIFF_REPORT_FILENAME"
+)
+
+# Print the full output
+echo "$output"
+
+echo "$output" > $INPUT_RECCMP_OUTPUT_FILENAME
+
+# Check if the output contains the word "Decreased"
+if grep -q "Decreased" <<< "$output"; then
   exit 1
 fi
-
-# # the report file must be the same as the one being commited in this PR
-# if cmp -s $INPUT_REPORT_FILENAME reccmp-report-new.json; then
-#   echo "Files are identical"
-# else
-#   echo "Files differ"
-#   return 1
-# fi
