@@ -27,6 +27,7 @@ sed -i 's/Z://g' reccmp-build.yml
 # Capture the output of the command into a variable
 output=$(
   reccmp-reccmp \
+    --no-color \
     --target "$INPUT_TARGET" \
     --html reccmp-report.html \
     --json "$INPUT_REPORT_FILENAME" \
