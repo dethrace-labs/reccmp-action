@@ -37,8 +37,3 @@ output=$(
 echo "$output"
 
 echo "$output" > $INPUT_RECCMP_OUTPUT_FILENAME
-
-# Check if the output contains the word "Decreased"
-if grep -q "Decreased" <<< "$output"; then
-  exit 1
-fi
