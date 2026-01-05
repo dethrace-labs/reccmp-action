@@ -27,9 +27,9 @@ jobs:
       # Step 3: Build Docker image
       - name: Build image
         run: |
-          docker build -t ghcr.io/${{ github.repository }}/action .
+          docker build -t ghcr.io/dethrace-labs/reccmp-action:latest .
 
       # Step 4: Push Docker image to GHCR
       - name: Push image
         run: |
-          docker push ghcr.io/${{ github.repository }}/action
+          docker push ghcr.io/dethrace-labs/reccmp-action:latest
