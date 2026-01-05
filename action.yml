@@ -24,6 +24,12 @@ inputs:
   report_filename:
     description: "reccmp report filename"
     required: true
+  status_png_icon_filename:
+    description: "png filename for svg generation"
+    required: true
+  status_svg_filename:
+    description: "output svg status filename"
+    required: true
   reccmp_output_filename:
     description: "reccmp output filename"
     required: true

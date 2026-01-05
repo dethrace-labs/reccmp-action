@@ -31,7 +31,9 @@ output=$(
     --target "$INPUT_TARGET" \
     --html reccmp-report.html \
     --json "$INPUT_REPORT_FILENAME" \
-    --diff "$INPUT_DIFF_REPORT_FILENAME"
+    --diff "$INPUT_DIFF_REPORT_FILENAME" \
+    --svg "$INPUT_STATUS_SVG_FILENAME" \
+    --svg-icon "$INPUT_STATUS_PNG_ICON_FILENAME"
 )
 
 # Print the full output
