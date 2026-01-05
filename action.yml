@@ -36,4 +36,4 @@ inputs:
 
 runs:
   using: "docker"
-  image: "docker://ghcr.io/dethrace-labs/reccmp-action/action"
+  image: "docker://ghcr.io/dethrace-labs/reccmp-action"
